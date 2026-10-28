@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LinkLens — Suspicious Link Awareness Checker. Deconstruct suspicious URLs locally with a high-impact tactical cyber defense terminal. Pause before you click." />
+  <title>LINKLENS // Suspicious Link Awareness Checker</title>
+  
+  <!-- Favicon / Shield Icon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFE500' stroke='%23000' stroke-width='2'><polygon points='12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2'/></svg>" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/src/styles/main.css" />
+</head>
+<body>
+
+  <!-- Top Caution Hazard Tape Bar (Continuous seamless animation right to left) -->
+  <div class="hazard-tape-banner" aria-hidden="true"></div>
+
+  <!-- HUD Control Bar -->
+  <header class="hud-header">
+    <div class="hud-header-inner">
+      <a href="#" class="hud-brand-link" aria-label="LinkLens Cyber Terminal Home">
+        <!-- Animated Magnifying Lens Icon immediately before wordmark -->
+        <div class="hud-logo-lens" aria-hidden="true">
+          <svg class="lens-svg" viewBox="0 0 28 28" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="lens-sheen" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFE500" stop-opacity="0.2"/>
+                <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#FFE500" stop-opacity="0.2"/>
+              </linearGradient>
+            </defs>
+            <circle cx="11.5" cy="11.5" r="8.5" stroke="var(--hazard-yellow)" stroke-width="2" class="lens-rim" />
+            <circle cx="11.5" cy="11.5" r="5" stroke="var(--hazard-yellow)" stroke-width="1" stroke-dasharray="2 2" opacity="0.6" />
+            <circle cx="11.5" cy="11.5" r="1.3" fill="var(--hazard-yellow)" />
+            <path d="M7 8.5 A 6 6 0 0 1 15 6" stroke="url(#lens-sheen)" stroke-width="2" stroke-linecap="round" class="lens-highlight" />
+            <line x1="18" y1="18" x2="24.5" y2="24.5" stroke="var(--hazard-yellow)" stroke-width="2.5" stroke-linecap="round" class="lens-handle" />
+            <line x1="20.5" y1="17.5" x2="23.5" y2="20.5" stroke="#FFAA00" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+        </div>
+        <span class="hud-logo-text">LINK<span>LENS</span></span>
+      </a>
+
+      <!-- Real-time Active Beacon -->
+      <div class="hud-status-node">
+        <span class="status-beacon"></span>
+        STATUS: READY // CLIENT-SIDE
+      </div>
+
+      <!-- Compact Action Controls (Methodology retained, light mode and audio toggle removed) -->
+      <div class="hud-actions">
+        <button type="button" class="hud-btn" id="nav-about-btn" aria-label="Open methodology specification dialog">
+          [ METHODOLOGY ]
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero / Classified Banner Section -->
+  <section class="hero-classified-section">
+    <div class="classified-stamp-wrapper">
+      <h1 class="giant-stencil-title">LINKLENS</h1>
+      <span class="classified-stamp">[ LOCAL SCAN ]</span>
+    </div>
+    <div class="terminal-prompt-subhead">
+      &gt; Inspect any URL for deceptive payloads... <span class="highlight">pause before you click.</span><span class="blinking-cursor">_</span>
+    </div>
+  </section>
+
+  <!-- Main Dual-Vector Layout -->
+  <main class="main-tactical-layout">
+
+    <!-- LEFT COLUMN: Input Vector & Attack Presets -->
+    <section class="tactical-left-column" aria-label="Link Analysis Console">
+      
+      <!-- Target Input Console -->
+      <div class="tactical-input-card">
+        <div class="tactical-input-header">
+          <div class="tactical-heading-group">
+            <span class="tactical-primary-label">Check a link</span>
+            <span class="tactical-secondary-note">// url inspection</span>
+          </div>
+          <span class="tactical-char-counter" id="char-counter">0 / 4096 chars</span>
+        </div>
+
+        <p class="input-instruction-text">Paste a suspicious link to check it.</p>
+
+        <form id="url-analyzer-form" novalidate>
+          <!-- Tactical Input Bar -->
+          <div class="tactical-input-bar" id="url-input-wrapper">
+            <span class="input-bracket-icon" aria-hidden="true">&gt;</span>
+            <input
+              type="text"
+              id="url-input"
+              class="tactical-url-input"
+              placeholder="https://example.com/path"
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+              maxlength="4096"
+              aria-label="URL to analyze"
+            />
+            <button type="button" class="btn-clear-target" id="btn-clear-input" aria-label="Clear link input" style="display: none;">
+              ✕
+            </button>
+            <button type="submit" class="btn-tactical-scan" id="btn-analyze-submit" aria-label="Analyze URL">
+              <span id="btn-analyze-text">ANALYZE</span>
+            </button>
+          </div>
+
+          <!-- Error / Validation Alert Banner -->
+          <div class="tactical-error-banner" id="input-feedback" role="alert" aria-live="polite" style="display: none;"></div>
+        </form>
+      </div>
+
+      <!-- Tactical Preset Vectors Row -->
+      <div class="presets-chamber">
+        <div class="presets-title">
+          <div class="presets-title-left">
+            <span class="presets-primary-label">Try an example</span>
+            <span class="presets-secondary-note">// click to load</span>
+          </div>
+          <span class="presets-subtag">[ Safe RFC simulations ]</span>
+        </div>
+        
+        <!-- 3 Clearly Labeled Initial Examples -->
+        <div class="presets-grid" id="example-chips-container">
+          <!-- Populated dynamically via JavaScript (Normal-looking URL, Suspicious URL structure, Unusual hostname) -->
+        </div>
+
+        <!-- Additional Examples behind compact disclosure -->
+        <details class="more-examples-disclosure">
+          <summary class="more-examples-summary">
+            <span class="summary-text">More examples</span>
+            <span class="summary-arrow" aria-hidden="true">▾</span>
+          </summary>
+          <div class="presets-grid presets-grid-more" id="more-example-chips-container">
+            <!-- Populated dynamically via JavaScript -->
+          </div>
+        </details>
+      </div>
+
+      <!-- Feature Telemetry Cards Grid -->
+      <div class="features-telemetry-grid">
+        <div class="telemetry-card">
+          <div class="telemetry-icon">[ 01 ]</div>
+          <h4>Structural Radar</h4>
+          <p>Dissects authority camouflage (@), IP literals, and punycode homoglyphs entirely in browser memory.</p>
+        </div>
+        <div class="telemetry-card">
+          <div class="telemetry-icon">[ 02 ]</div>
+          <h4>Explainable Findings</h4>
+          <p>Translates deceptive structures into clear evidence and actionable countermeasures.</p>
+        </div>
+        <div class="telemetry-card">
+          <div class="telemetry-icon">[ 03 ]</div>
+          <h4>Analyzed locally — no external lookup performed</h4>
+          <p>Never connects, visits, or leaks target URLs to external blacklist servers or third parties.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- RIGHT COLUMN: Security Report Dossier Panel -->
+    <section class="tactical-right-column" aria-label="Security Report Dossier">
+      <div class="hud-panel-frame" id="analysis-panel-container">
+        <!-- Rendered dynamically: Standby -> Tactical Scan Radar -> Report Dossier -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- About / Methodology Modal Dialog -->
+  <div class="modal-overlay" id="about-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title">// LINKLENS HEURISTIC THREAT SPECIFICATION</h3>
+        <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Close dialog">
+          ✕
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>MISSION DIRECTIVE: "PAUSE BEFORE YOU CLICK"</h4>
+        <p>
+          LinkLens is an educational cybersecurity tool designed to help users identify deceptive URL structures before interacting with suspicious links in emails, SMS phishing (smishing), or chat messages.
+        </p>
+
+        <h4>LOCAL HEURISTIC SCORING ENGINE</h4>
+        <p>
+          Our scoring engine computes a composite risk rating between <strong>0 and 100</strong> across structural checks, including authority deception (@ credentials), IP-based hosts, punycode homographs, deep subdomain camouflage, known shorteners, and external redirect parameters.
+        </p>
+
+        <h4>HEURISTIC THREAT RATINGS</h4>
+        <ul>
+          <li><strong>0–24: No Obvious Warning Signs Detected</strong> — No common deceptive structural patterns identified. This does not guarantee safety.</li>
+          <li><strong>25–54: Some Warning Signs</strong> — Non-standard elements detected (such as URL shorteners or potential open redirect parameters). Review carefully.</li>
+          <li><strong>55–100: High Concern</strong> — Multiple severe deceptive structures or authority masquerades identified.</li>
+        </ul>
+
+        <h4>CRITICAL BOUNDARIES & DISCLAIMER</h4>
+        <p>
+          <strong>Absence of warning signs is not proof of safety.</strong> LinkLens operates purely on local URL grammar and static heuristics. It does not inspect destination server code or live malware payloads.
+        </p>
+
+        <h4>PRIVACY GUARANTEE</h4>
+        <p>
+          Zero network traffic. Links are parsed strictly in local browser memory. Sensitive authentication credentials and session tokens are redacted automatically.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom HUD Footer -->
+  <footer class="hud-footer">
+    <div class="hud-footer-inner">
+      <div class="hud-footer-row">
+        <span class="footer-classified-tag">
+          LINKLENS // CYBER DEFENSE TERMINAL v2.0
+        </span>
+        <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--threat-nominal);">
+          100% CLIENT-SIDE VERIFIED
+        </span>
+      </div>
+      <p class="footer-disclaimer-copy">
+        DISCLAIMER: Heuristic analysis is an educational cyber awareness aid. It does not constitute a warranty of site safety or malware detection. Never submit confidential credentials on unverified websites.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Main Application Script -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
